@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 $servername = "fdb1034.awardspace.net"; // Your server name, often 'localhost'
 $username = "4395505_commentsdb"; // Your database user
 $password = "Poiuytrewq1!"; // Your database password
-$dbname = "comments"; // Your database name
+$dbname = "4395505_commentsdb"; // Your database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
