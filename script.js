@@ -5,13 +5,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Load comments from the server
     const loadComments = async () => {
-        const response = await fetch('https://supportindeed.com/phpMyAdmin/index.php?server=1&xck=1702568649/comments.php');
-        const comments = await response.json();
-        comments.forEach(comment => {
-            const commentElement = document.createElement('div');
-            commentElement.textContent = comment.comment;
-            commentList.appendChild(commentElement);
-        });
+        try {
+            const response = await fetch('https://cammyk.mygamesonline.org/comments.php');
+            if (!response.ok) throw new Error('Failed to load comments');
+            const comments = await response.json();
+            comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.textContent = comment.comment;
+                commentList.appendChild(commentElement);
+            });
+        } catch (error) {
+            console.error(error);
+            alert('Error loading comments');
+        }
     };
 
     await loadComments();
@@ -20,21 +26,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     submitCommentButton.addEventListener('click', async () => {
         const commentText = commentInput.value.trim();
         if (commentText) {
-            const response = await fetch('https://supportindeed.com/phpMyAdmin/index.php?server=1&xck=1702568649/comments.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `comment=${encodeURIComponent(commentText)}`
-            });
+            try {
+                const response = await fetch('https://cammyk.mygamesonline.org/comments.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': 'Basic ' + btoa('prompt("What is our motto?"):6969646464') // Replace with your actual credentials
+                    },
+                    body: `comment=${encodeURIComponent(commentText)}`
+                });
 
-            if (response.ok) {
-                const commentElement = document.createElement('div');
-                commentElement.textContent = commentText;
-                commentList.appendChild(commentElement);
-                commentInput.value = ''; // Clear input
-            } else {
-                alert('Failed to submit comment!');
+                if (response.ok) {
+                    const commentElement = document.createElement('div');
+                    commentElement.textContent = commentText;
+                    commentList.appendChild(commentElement);
+                    commentInput.value = ''; // Clear input
+                } else {
+                    throw new Error('Failed to submit comment');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Error submitting comment');
             }
         } else {
             alert('Please enter a comment!');
