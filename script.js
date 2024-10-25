@@ -26,12 +26,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     submitCommentButton.addEventListener('click', async () => {
         const commentText = commentInput.value.trim();
         if (commentText) {
+            // Prompt for the password
+            const password = prompt('What is our motto?');
+            if (!password) {
+                alert('What is our motto?');
+                return;
+            }
+
             try {
+                const username = '6969646464'; // Replace with your actual username
+
                 const response = await fetch('https://cammyk.mygamesonline.org/comments.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': 'Basic ' + btoa('prompt("What is our motto?"):6969646464') // Replace with your actual credentials
+                        'Authorization': 'Basic ' + btoa(`${username}:${password}`)
                     },
                     body: `comment=${encodeURIComponent(commentText)}`
                 });
