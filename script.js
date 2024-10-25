@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Load comments from the server
     const loadComments = async () => {
-        const response = await fetch('http://yourdomain.com/comments.php');
+        const response = await fetch('http://1026cammy.github.io/my-comments-app/comments.php');
         const comments = await response.json();
         comments.forEach(comment => {
             const commentElement = document.createElement('div');
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     submitCommentButton.addEventListener('click', async () => {
         const commentText = commentInput.value.trim();
         if (commentText) {
-            const response = await fetch('http://yourdomain.com/comments.php', {
+            const response = await fetch('http://1026cammy.github.io/my-comments-app/comments.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
